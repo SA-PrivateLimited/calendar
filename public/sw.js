@@ -1,6 +1,6 @@
 // Service Worker for offline support and better caching
-const CACHE_NAME = 'hinducalendar-v5';
-const API_CACHE = 'hinducalendar-api-v5';
+const CACHE_NAME = 'hinducalendar-v6';
+const API_CACHE = 'hinducalendar-api-v6';
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {

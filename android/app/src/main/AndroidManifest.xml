@@ -7,8 +7,8 @@
     <application
       android:name=".MainApplication"
         android:label="Hindu Panchang Calendar"
-        android:icon="@android:drawable/ic_menu_my_calendar"
-        android:roundIcon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">

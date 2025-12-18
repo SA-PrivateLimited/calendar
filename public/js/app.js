@@ -99,22 +99,25 @@ function setupEventListeners() {
         });
     }
     
-    document.getElementById('exportBtn').addEventListener('click', () => {
-        document.getElementById('exportModal').style.display = 'block';
-    });
+    // Theme toggle button - cycles through themes
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themes = ['grey', 'blue', 'green', 'purple', 'orange', 'teal'];
+    let currentThemeIndex = 0;
     
-    // Theme selector
-    const themeSelect = document.getElementById('themeSelect');
-    if (themeSelect) {
+    if (themeToggleBtn) {
         // Load saved theme
         const savedTheme = localStorage.getItem('calendarTheme') || 'grey';
-        themeSelect.value = savedTheme;
-        applyTheme(savedTheme);
+        currentThemeIndex = themes.indexOf(savedTheme);
+        if (currentThemeIndex === -1) currentThemeIndex = 0;
         
-        themeSelect.addEventListener('change', (e) => {
-            const theme = e.target.value;
-            applyTheme(theme);
-            localStorage.setItem('calendarTheme', theme);
+        applyTheme(themes[currentThemeIndex]);
+        
+        themeToggleBtn.addEventListener('click', () => {
+            // Cycle to next theme
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            const nextTheme = themes[currentThemeIndex];
+            applyTheme(nextTheme);
+            localStorage.setItem('calendarTheme', nextTheme);
         });
     }
     
@@ -156,9 +159,26 @@ function setupEventListeners() {
             applyFiltersImmediate();
             renderCalendar();
             if (e.target.value !== 'all') {
+                // Apply filter first
+                applyFiltersImmediate();
                 setTimeout(() => {
-                    showFilterResults('Tithi', e.target.value, filteredCalendarData);
-                }, 100);
+                    // Check if calendarData is loaded
+                    if (!calendarData || calendarData.length === 0) {
+                        console.error('Calendar data not loaded yet!');
+                        alert('Calendar is still loading. Please wait...');
+                        return;
+                    }
+                    
+                    // Filter data specifically for this tithi
+                    const filtered = calendarData.filter(day => {
+                        if (!day || !day.tithi) return false;
+                        const tithi = typeof day.tithi === 'string' ? day.tithi : (day.tithi?.en || '').toLowerCase();
+                        return tithi.includes(e.target.value.toLowerCase());
+                    });
+                    console.log('Tithi filter selected:', e.target.value, 'Found', filtered.length, 'dates');
+                    console.log('Total calendarData:', calendarData.length);
+                    showFilterResults('Tithi', e.target.value, filtered);
+                }, 200);
             } else {
                 closeFilterResultsModal();
             }
@@ -172,9 +192,28 @@ function setupEventListeners() {
             applyFiltersImmediate();
             renderCalendar();
             if (e.target.value !== 'all') {
+                // Apply filter first
+                applyFiltersImmediate();
                 setTimeout(() => {
-                    showFilterResults('Major Festivals', e.target.value, filteredCalendarData);
-                }, 100);
+                    // Check if calendarData is loaded
+                    if (!calendarData || calendarData.length === 0) {
+                        console.error('Calendar data not loaded yet!');
+                        alert('Calendar is still loading. Please wait...');
+                        return;
+                    }
+                    
+                    // Filter data specifically for festivals
+                    const filtered = calendarData.filter(day => {
+                        if (!day) return false;
+                        if (e.target.value === 'major') {
+                            return day.festivals && day.festivals.length > 0;
+                        }
+                        return true;
+                    });
+                    console.log('Festival filter selected:', e.target.value, 'Found', filtered.length, 'dates');
+                    console.log('Total calendarData:', calendarData.length);
+                    showFilterResults('Major Festivals', e.target.value, filtered);
+                }, 200);
             } else {
                 closeFilterResultsModal();
             }
@@ -188,9 +227,26 @@ function setupEventListeners() {
             applyFiltersImmediate();
             renderCalendar();
             if (e.target.value !== 'all') {
+                // Apply filter first
+                applyFiltersImmediate();
                 setTimeout(() => {
-                    showFilterResults('Nakshatra', e.target.value, filteredCalendarData);
-                }, 100);
+                    // Check if calendarData is loaded
+                    if (!calendarData || calendarData.length === 0) {
+                        console.error('Calendar data not loaded yet!');
+                        alert('Calendar is still loading. Please wait...');
+                        return;
+                    }
+                    
+                    // Filter data specifically for this nakshatra
+                    const filtered = calendarData.filter(day => {
+                        if (!day || !day.nakshatra) return false;
+                        const nakshatra = typeof day.nakshatra === 'string' ? day.nakshatra : (day.nakshatra?.en || '').toLowerCase();
+                        return nakshatra.includes(e.target.value.toLowerCase());
+                    });
+                    console.log('Nakshatra filter selected:', e.target.value, 'Found', filtered.length, 'dates');
+                    console.log('Total calendarData:', calendarData.length);
+                    showFilterResults('Nakshatra', e.target.value, filtered);
+                }, 200);
             } else {
                 closeFilterResultsModal();
             }
@@ -246,60 +302,140 @@ function setupEventListeners() {
     
     // Function to show filter results in modal
     function showFilterResults(filterType, filterValue, filteredData) {
+        console.log('=== showFilterResults START ===');
+        console.log('filterType:', filterType);
+        console.log('filterValue:', filterValue);
+        console.log('filteredData:', filteredData);
+        console.log('filteredData length:', filteredData?.length);
+        
         const modal = document.getElementById('filterResultsModal');
         const title = document.getElementById('filterResultsTitle');
         const content = document.getElementById('filterResultsContent');
         
-        if (!modal || !title || !content) return;
-        
-        title.textContent = `${filterType}: ${filterValue.charAt(0).toUpperCase() + filterValue.slice(1)} (${filteredData.length} dates)`;
-        
-        if (filteredData.length === 0) {
-            content.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 20px;">No dates found matching this filter.</p>';
-        } else {
-            let html = '<div style="display: grid; gap: 10px;">';
-            filteredData.forEach(day => {
-                const date = new Date(day.date);
-                const dateStr = date.toLocaleDateString('en-US', { 
-                    weekday: 'short', 
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric' 
-                });
-                
-                let details = [];
-                if (day.tithi) {
-                    const tithi = typeof day.tithi === 'string' ? day.tithi : (day.tithi?.en || '');
-                    if (tithi) details.push(`Tithi: ${tithi}`);
-                }
-                if (day.nakshatra) {
-                    const nakshatra = typeof day.nakshatra === 'string' ? day.nakshatra : (day.nakshatra?.en || '');
-                    if (nakshatra) details.push(`Nakshatra: ${nakshatra}`);
-                }
-                if (day.festivals && day.festivals.length > 0) {
-                    const festivals = day.festivals.map(f => typeof f === 'string' ? f : (f.en || f.name || '')).join(', ');
-                    details.push(`Festivals: ${festivals}`);
-                }
-                
-                html += `
-                    <div style="padding: 12px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #6b7280;">
-                        <div style="font-weight: 600; color: #6b7280; margin-bottom: 5px;">${dateStr}</div>
-                        ${details.length > 0 ? `<div style="font-size: 13px; color: #6b7280;">${details.join(' • ')}</div>` : ''}
-                    </div>
-                `;
-            });
-            html += '</div>';
-            content.innerHTML = html;
+        if (!modal) {
+            console.error('❌ filterResultsModal not found!');
+            alert('Modal element not found!');
+            return;
+        }
+        if (!title) {
+            console.error('❌ filterResultsTitle not found!');
+            alert('Title element not found!');
+            return;
+        }
+        if (!content) {
+            console.error('❌ filterResultsContent not found!');
+            alert('Content element not found!');
+            return;
         }
         
-        modal.style.display = 'block';
+        // Always show modal, even if no data
+        if (!filteredData || filteredData.length === undefined) {
+            console.warn('⚠️ filteredData is invalid, showing empty message');
+            title.textContent = `${filterType}: ${filterValue.charAt(0).toUpperCase() + filterValue.slice(1)}`;
+            content.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 20px;">No data available for this filter.</p>';
+        } else {
+            title.textContent = `${filterType}: ${filterValue.charAt(0).toUpperCase() + filterValue.slice(1)} (${filteredData.length} dates)`;
+            
+            if (filteredData.length === 0) {
+                content.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 20px;">No dates found matching this filter.</p>';
+            } else {
+                let html = '<div style="display: grid; gap: 10px; max-height: 400px; overflow-y: auto;">';
+                filteredData.forEach((day, index) => {
+                    if (!day || !day.date) {
+                        console.warn('Invalid day data at index:', index, day);
+                        return;
+                    }
+                    
+                    try {
+                        const date = new Date(day.date);
+                        if (isNaN(date.getTime())) {
+                            console.warn('Invalid date:', day.date);
+                            return;
+                        }
+                        
+                        const dateStr = date.toLocaleDateString('en-US', { 
+                            weekday: 'short', 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+                        
+                        let details = [];
+                        if (day.tithi) {
+                            const tithi = typeof day.tithi === 'string' ? day.tithi : (day.tithi?.en || '');
+                            if (tithi) details.push(`Tithi: ${tithi}`);
+                        }
+                        if (day.nakshatra) {
+                            const nakshatra = typeof day.nakshatra === 'string' ? day.nakshatra : (day.nakshatra?.en || '');
+                            if (nakshatra) details.push(`Nakshatra: ${nakshatra}`);
+                        }
+                        if (day.festivals && day.festivals.length > 0) {
+                            const festivals = day.festivals.map(f => typeof f === 'string' ? f : (f.en || f.name || '')).join(', ');
+                            if (festivals) details.push(`Festivals: ${festivals}`);
+                        }
+                        
+                        html += `
+                            <div style="padding: 12px; background: #f9fafb; border-radius: 8px; border-left: 3px solid #6b7280;">
+                                <div style="font-weight: 600; color: #6b7280; margin-bottom: 5px;">${dateStr}</div>
+                                ${details.length > 0 ? `<div style="font-size: 13px; color: #6b7280;">${details.join(' • ')}</div>` : '<div style="font-size: 13px; color: #9ca3af;">No additional details</div>'}
+                            </div>
+                        `;
+                    } catch (error) {
+                        console.error('Error processing day:', day, error);
+                    }
+                });
+                html += '</div>';
+                content.innerHTML = html;
+            }
+        }
+        
+        // Force modal to show at top of viewport
+        console.log('Setting modal to display...');
+        modal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0,0,0,0.6) !important; align-items: flex-start !important; justify-content: center !important; visibility: visible !important; opacity: 1 !important; padding-top: 20px !important; overflow-y: auto !important;';
+        
+        // Scroll modal content to top of viewport
+        setTimeout(() => {
+            modal.scrollTop = 0;
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 10);
+        
+        document.body.style.overflow = 'hidden';
+        // Prevent scrolling on the calendar container
+        const calendarView = document.getElementById('calendarView');
+        if (calendarView) {
+            calendarView.style.overflow = 'hidden';
+            calendarView.style.position = 'fixed';
+        }
+        
+        console.log('Modal style set. Computed display:', window.getComputedStyle(modal).display);
+        console.log('Modal content:', content.innerHTML.substring(0, 100));
+        console.log('=== showFilterResults END ===');
     }
     
     // Function to close filter results modal
     function closeFilterResultsModal() {
         const modal = document.getElementById('filterResultsModal');
         if (modal) {
-            modal.style.display = 'none';
+            // Restore scroll position
+            const scrollY = document.body.style.top;
+            // Force close with !important to override inline styles
+            modal.style.cssText = 'display: none !important;';
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+            // Restore calendar container
+            const calendarView = document.getElementById('calendarView');
+            if (calendarView) {
+                calendarView.style.overflow = '';
+                calendarView.style.position = '';
+            }
         }
     }
     
@@ -315,29 +451,290 @@ function setupEventListeners() {
     // Initial update
     updateClearButtons();
 
-    // Modal close handlers
-    document.querySelectorAll('.close').forEach(closeBtn => {
-        closeBtn.addEventListener('click', (e) => {
-            e.target.closest('.modal').style.display = 'none';
-        });
+    // Modal close handlers - use event delegation for dynamically added modals
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('close') || e.target.textContent === '×') {
+            e.preventDefault();
+            e.stopPropagation();
+            const modal = e.target.closest('.modal');
+            if (modal) {
+                console.log('Closing modal:', modal.id);
+                // Restore scroll position
+                const scrollY = document.body.style.top;
+                // Remove inline styles that might prevent closing
+                modal.style.cssText = 'display: none !important;';
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                if (scrollY) {
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
+                // Restore calendar container
+                const calendarView = document.getElementById('calendarView');
+                if (calendarView) {
+                    calendarView.style.overflow = '';
+                    calendarView.style.position = '';
+                }
+            }
+        }
     });
 
-    // Close modal when clicking outside
+    // Event delegation for day cell clicks - show day details modal
+    // Use a single, well-ordered handler with proper event stopping
+    const calendarView = document.getElementById('calendarView');
+    if (calendarView) {
+        // Remove any existing listeners by cloning the element
+        const newCalendarView = calendarView.cloneNode(true);
+        calendarView.parentNode.replaceChild(newCalendarView, calendarView);
+        
+        // Re-attach the listener to the new element
+        const freshCalendarView = document.getElementById('calendarView');
+        if (freshCalendarView) {
+            freshCalendarView.addEventListener('click', (e) => {
+                // Check if clicking on a day cell
+                const dayCell = e.target.closest('.day-cell');
+                if (dayCell) {
+                    // Don't trigger if clicking on interactive elements
+                    if (e.target.closest('.note-btn') || 
+                        e.target.closest('.filter-clear-btn') || 
+                        e.target.closest('.close') || 
+                        e.target.closest('.modal') ||
+                        e.target.closest('.modal-content')) {
+                        return;
+                    }
+                    
+                    const dateStr = dayCell.getAttribute('data-date');
+                    if (dateStr) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        console.log('Opening day details for:', dateStr);
+                        // Use setTimeout to ensure modal opens after event propagation completes
+                        setTimeout(() => {
+                            showDayDetails(dateStr);
+                        }, 0);
+                        return false;
+                    }
+                }
+            }, true); // Use capture phase to run before other handlers
+        }
+    } else {
+        console.error('calendarView element not found!');
+    }
+
+    // Close modal when clicking outside (must be after calendar click handler)
     window.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal')) {
-            e.target.style.display = 'none';
+        // Only close if clicking directly on modal background, not on calendar elements or modal content
+        if (e.target.classList.contains('modal') && !e.target.closest('.modal-content') && !e.target.closest('.day-cell')) {
+            const modal = e.target;
+            modal.style.cssText = 'display: none !important;';
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
         }
     });
-
-    // Event delegation for day cell clicks - scroll to month when day is clicked
-    document.getElementById('calendarView').addEventListener('click', (e) => {
-        const dayCell = e.target.closest('.day-cell');
-        if (dayCell && dayCell.getAttribute('data-date')) {
-            const dateStr = dayCell.getAttribute('data-date');
-            const monthKey = dateStr.substring(0, 7); // Extract YYYY-MM
-            scrollToMonth(monthKey);
+    
+    // Store the selected date for scrolling back after modal closes
+    let selectedDateForScroll = null;
+    
+    // Function to show day details modal
+    function showDayDetails(dateStr) {
+        console.log('=== showDayDetails START ===');
+        console.log('dateStr:', dateStr);
+        console.log('calendarData length:', calendarData.length);
+        
+        // Store the selected date
+        selectedDateForScroll = dateStr;
+        
+        const day = calendarData.find(d => d.date === dateStr);
+        console.log('Day found:', day);
+        if (!day) {
+            console.warn('Day not found for date:', dateStr);
+            return;
         }
-    });
+        
+        const modal = document.getElementById('dayDetailsModal');
+        const title = document.getElementById('dayDetailsTitle');
+        const content = document.getElementById('dayDetailsContent');
+        
+        console.log('Modal elements:', { modal: !!modal, title: !!title, content: !!content });
+        if (!modal) {
+            console.error('dayDetailsModal not found!');
+            return;
+        }
+        if (!title) {
+            console.error('dayDetailsTitle not found!');
+            return;
+        }
+        if (!content) {
+            console.error('dayDetailsContent not found!');
+            return;
+        }
+        
+        console.log('All elements found, proceeding...');
+        
+        const date = new Date(dateStr);
+        const dateFormatted = date.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        title.textContent = `📅 ${dateFormatted}`;
+        
+        let html = '<div style="display: flex; flex-direction: column; gap: 20px;">';
+        
+        // Tithi
+        if (day.tithi) {
+            const tithi = typeof day.tithi === 'string' ? day.tithi : (day.tithi?.en || day.tithi?.hi || '');
+            if (tithi) {
+                html += `
+                    <div style="padding: 15px; background: #f9fafb; border-radius: 10px; border-left: 4px solid var(--primary-color);">
+                        <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 5px; font-size: 14px;">TITHI</div>
+                        <div style="font-size: 16px; color: #374151;">${tithi}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Nakshatra
+        if (day.nakshatra) {
+            const nakshatra = typeof day.nakshatra === 'string' ? day.nakshatra : (day.nakshatra?.en || day.nakshatra?.hi || '');
+            if (nakshatra) {
+                html += `
+                    <div style="padding: 15px; background: #f9fafb; border-radius: 10px; border-left: 4px solid var(--primary-color);">
+                        <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 5px; font-size: 14px;">NAKSHATRA</div>
+                        <div style="font-size: 16px; color: #374151;">${nakshatra}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Festivals
+        if (day.festivals && day.festivals.length > 0) {
+            html += `
+                <div style="padding: 15px; background: #f9fafb; border-radius: 10px; border-left: 4px solid var(--primary-color);">
+                    <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 10px; font-size: 14px;">FESTIVALS</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+            `;
+            day.festivals.forEach(festival => {
+                const festivalName = typeof festival === 'string' ? festival : (festival.en || festival.name || '');
+                html += `
+                    <div style="padding: 10px; background: white; border-radius: 6px; font-size: 15px; color: #374151;">
+                        🎉 ${festivalName}
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+        } else {
+            html += `
+                <div style="padding: 15px; background: #f9fafb; border-radius: 10px; border-left: 4px solid var(--primary-color);">
+                    <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 5px; font-size: 14px;">FESTIVALS</div>
+                    <div style="font-size: 15px; color: #6b7280;">No festivals on this day</div>
+                </div>
+            `;
+        }
+        
+        // National Holiday
+        if (day.nationalHoliday) {
+            html += `
+                <div style="padding: 15px; background: #fee2e2; border-radius: 10px; border-left: 4px solid #ef4444;">
+                    <div style="font-weight: 600; color: #ef4444; font-size: 14px;">🇮🇳 National Holiday</div>
+                </div>
+            `;
+        }
+        
+        html += '</div>';
+        content.innerHTML = html;
+        
+        // Store current scroll position
+        const scrollY = window.scrollY;
+        
+        console.log('Setting modal styles...');
+        // Position modal at top of viewport (visible screen)
+        modal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0,0,0,0.6) !important; align-items: flex-start !important; justify-content: center !important; visibility: visible !important; opacity: 1 !important; padding-top: 20px !important; overflow-y: auto !important;';
+        
+        // Scroll modal content to top of viewport
+        setTimeout(() => {
+            modal.scrollTop = 0;
+            const modalContent = modal.querySelector('.modal-content');
+            if (modalContent) {
+                modalContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 10);
+        
+        // Prevent body scrolling when modal is open
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+        
+        // Prevent calendar container scrolling
+        const calendarView = document.getElementById('calendarView');
+        if (calendarView) {
+            calendarView.style.overflow = 'hidden';
+        }
+        
+        console.log('Modal display set. Computed display:', window.getComputedStyle(modal).display);
+        console.log('=== showDayDetails END ===');
+    }
+    
+    // Close day details modal
+    const dayDetailsModal = document.getElementById('dayDetailsModal');
+    if (dayDetailsModal) {
+        const restoreScroll = () => {
+            const scrollY = document.body.style.top;
+            // Force close with !important to override inline styles
+            dayDetailsModal.style.cssText = 'display: none !important;';
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            
+            const calendarView = document.getElementById('calendarView');
+            if (calendarView) {
+                calendarView.style.overflow = '';
+                calendarView.style.position = '';
+            }
+            
+            // Scroll to the selected date's month section
+            if (selectedDateForScroll) {
+                const date = new Date(selectedDateForScroll);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                console.log('Scrolling to month:', monthKey);
+                
+                setTimeout(() => {
+                    // Scroll to month without notification and without highlight
+                    scrollToMonth(monthKey, false, false);
+                    // Also scroll to the specific date cell if possible
+                    const dayCell = document.querySelector(`[data-date="${selectedDateForScroll}"]`);
+                    if (dayCell) {
+                        setTimeout(() => {
+                            dayCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 500);
+                    }
+                }, 100);
+            } else if (scrollY) {
+                // Fallback to original scroll position if no date was stored
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        };
+        
+        const closeBtn = dayDetailsModal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', restoreScroll);
+        }
+        
+        // Close modal when clicking outside
+        dayDetailsModal.addEventListener('click', (e) => {
+            if (e.target === dayDetailsModal) {
+                restoreScroll();
+            }
+        });
+    }
 }
 
 // Load calendar data (optimized - cache-first strategy)
@@ -471,7 +868,7 @@ function renderCalendar() {
 }
 
 // Scroll to a specific month in the calendar
-function scrollToMonth(monthKey) {
+function scrollToMonth(monthKey, showNotificationFlag = true, highlightMonth = true) {
     const monthSection = document.querySelector(`[data-month="${monthKey}"]`);
     if (monthSection) {
         // Scroll to the month section smoothly
@@ -481,16 +878,22 @@ function scrollToMonth(monthKey) {
             inline: 'nearest'
         });
         
-        // Highlight the month briefly
-        monthSection.style.transition = 'background-color 0.3s';
-        monthSection.style.backgroundColor = '#fef3c7';
-        setTimeout(() => {
-            monthSection.style.backgroundColor = '';
-        }, 2000);
+        // Highlight the month briefly (only if requested)
+        if (highlightMonth) {
+            monthSection.style.transition = 'background-color 0.3s';
+            monthSection.style.backgroundColor = '#fef3c7';
+            setTimeout(() => {
+                monthSection.style.backgroundColor = '';
+            }, 2000);
+        }
         
-        showNotification(`📅 Scrolled to ${getMonthNameFromKey(monthKey)}`, 'success');
+        if (showNotificationFlag) {
+            showNotification(`📅 Scrolled to ${getMonthNameFromKey(monthKey)}`, 'success');
+        }
     } else {
-        showNotification('Month not found. Please wait for calendar to load.', 'warning');
+        if (showNotificationFlag) {
+            showNotification('Month not found. Please wait for calendar to load.', 'warning');
+        }
     }
 }
 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/views.css">
     <link rel="stylesheet" href="css/filters.css">
     <link rel="stylesheet" href="css/calendar-fix.css">
-    <link rel="stylesheet" href="css/modern-theme.css?v=2">
+    <link rel="stylesheet" href="css/modern-theme.css?v=3">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#667eea">
@@ -32,33 +32,39 @@
     </script>
     <div class="container">
         <header>
-            <h1>हिन्दू पंचांग कैलेंडर | Hindu Panchang Calendar</h1>
+            <button id="themeToggleBtn" class="theme-toggle-btn" title="Change Theme">
+                <span class="theme-icon">🎨</span>
+            </button>
+            <h1>पंचांग कैलेंडर  <br /><small>(Panchang Calendar)</small> </h1>
+           
             <div class="controls">
-                <select id="yearSelect">
-                    <option value="2026" selected>2026</option>
-                    <option value="2025">2025</option>
-                    <option value="2027">2027</option>
-                </select>
-                <select id="languageSelect">
-                    <option value="en">English</option>
-                    <option value="hi">हिंदी</option>
-                    <option value="sa">संस्कृत</option>
-                </select>
-                <select id="monthSelect" class="month-select">
-                    <option value="">Select Month...</option>
-                    <option value="2026-01">January 2026</option>
-                    <option value="2026-02">February 2026</option>
-                    <option value="2026-03">March 2026</option>
-                    <option value="2026-04">April 2026</option>
-                    <option value="2026-05">May 2026</option>
-                    <option value="2026-06">June 2026</option>
-                    <option value="2026-07">July 2026</option>
-                    <option value="2026-08">August 2026</option>
-                    <option value="2026-09">September 2026</option>
-                    <option value="2026-10">October 2026</option>
-                    <option value="2026-11">November 2026</option>
-                    <option value="2026-12">December 2026</option>
-                </select>
+                <div class="controls-row">
+                    <select id="yearSelect">
+                        <option value="2026" selected>2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2027">2027</option>
+                    </select>
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="sa">संस्कृत</option>
+                    </select>
+                    <select id="monthSelect" class="month-select">
+                        <option value="">Select Month...</option>
+                        <option value="2026-01">January 2026</option>
+                        <option value="2026-02">February 2026</option>
+                        <option value="2026-03">March 2026</option>
+                        <option value="2026-04">April 2026</option>
+                        <option value="2026-05">May 2026</option>
+                        <option value="2026-06">June 2026</option>
+                        <option value="2026-07">July 2026</option>
+                        <option value="2026-08">August 2026</option>
+                        <option value="2026-09">September 2026</option>
+                        <option value="2026-10">October 2026</option>
+                        <option value="2026-11">November 2026</option>
+                        <option value="2026-12">December 2026</option>
+                    </select>
+                </div>
                 <div class="filter-wrapper">
                     <select id="filterTithi" class="filter-dropdown">
                         <option value="all">All Tithis</option>
@@ -107,17 +113,6 @@
                         <option value="krittika">Krittika</option>
                     </select>
                     <button class="filter-clear-btn" id="clearNakshatra" title="Clear Nakshatra filter" style="display: none;">✕</button>
-                </div>
-                <div class="action-buttons">
-                    <select id="themeSelect" class="theme-select" title="Select Theme">
-                        <option value="grey">Grey Theme</option>
-                        <option value="blue">Blue Theme</option>
-                        <option value="green">Green Theme</option>
-                        <option value="purple">Purple Theme</option>
-                        <option value="orange">Orange Theme</option>
-                        <option value="teal">Teal Theme</option>
-                    </select>
-                    <button id="exportBtn" class="btn">📥 Export</button>
                 </div>
             </div>
         </header>
@@ -176,6 +171,17 @@
             </div>
         </div>
 
+        <!-- Day Details Modal -->
+        <div id="dayDetailsModal" class="modal">
+            <div class="modal-content" style="max-width: 500px;">
+                <span class="close">&times;</span>
+                <h2 id="dayDetailsTitle">📅 Day Details</h2>
+                <div id="dayDetailsContent">
+                    <!-- Content will be populated here -->
+                </div>
+            </div>
+        </div>
+
         <!-- Export Modal -->
         <div id="exportModal" class="modal">
             <div class="modal-content">
@@ -191,10 +197,18 @@
 
         <footer class="footer">
             <div class="footer-content">
-                <p>Powered by <a href="https://SA-privateLimited.com" target="_blank">SA-privateLimited.com</a></p>
-                <p class="contact-info">
-                    <a href="tel:+918210900726">+91 8210900726</a>
-                </p>
+                <div class="footer-line-1">
+                    <p>Powered by <a href="https://SA-privateLimited.com" target="_blank">SA-privateLimited.com</a></p>
+                    <p class="contact-name">Prince Gupta</p>
+                </div>
+                <div class="footer-line-2">
+                    <p class="contact-info">
+                        <a href="tel:+918539943087">+91 8539943087</a>
+                    </p>
+                    <p class="support-info">
+                        <a href="mailto:support@SA-privateLimited.com">support@SA-privateLimited.com</a>
+                    </p>
+                </div>
             </div>
         </footer>
     </div>

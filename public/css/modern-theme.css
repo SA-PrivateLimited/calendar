@@ -64,9 +64,10 @@ body {
 }
 
 /* Header Styling */
+.container header,
 header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%) !important;
+    border-radius: var(--radius-xl) !important;
     padding: 30px;
     margin-bottom: 24px;
     box-shadow: var(--shadow-medium);
@@ -80,12 +81,61 @@ header h1 {
     text-shadow: none;
 }
 
+header h1 small {
+    font-size: 0.6em;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
 /* Controls */
 .controls {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.controls-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.filter-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.filter-clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    line-height: 1;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.filter-clear-btn:hover {
+    background: rgba(220, 38, 38, 1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .controls select,
@@ -214,17 +264,18 @@ header h1 {
 
 /* Day Number */
 .day-number {
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #1F2937;
     margin-bottom: 4px;
 }
 
 /* Day Info */
 .day-info {
-    font-size: 0.7em;
-    color: var(--text-secondary);
-    line-height: 1.3;
+    font-size: 0.75em;
+    color: #374151;
+    font-weight: 500;
+    line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -241,10 +292,10 @@ header h1 {
 .festival-item {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
-    padding: 4px 8px;
-    font-size: 0.65em;
-    font-weight: 500;
-    color: var(--text-primary);
+    padding: 5px 8px;
+    font-size: 0.7em;
+    font-weight: 600;
+    color: #1F2937;
     box-shadow: var(--shadow-soft);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -347,6 +398,32 @@ footer a:hover {
         font-size: 1.4em;
     }
 
+    .controls {
+        gap: 8px;
+    }
+
+    .controls-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        width: 100%;
+    }
+
+    .filter-wrapper {
+        width: 100%;
+    }
+
+    .controls select {
+        width: 100%;
+        font-size: 13px;
+        padding: 10px 30px 10px 12px;
+    }
+
+    .filter-dropdown {
+        width: 100%;
+        padding-right: 30px !important;
+    }
+
     .month-section {
         padding: 16px;
         border-radius: var(--radius-md);
@@ -367,16 +444,16 @@ footer a:hover {
     }
 
     .day-number {
-        font-size: 1em;
+        font-size: 1.1em;
     }
 
     .day-info {
-        font-size: 0.65em;
+        font-size: 0.7em;
     }
 
     .festival-item {
-        font-size: 0.6em;
-        padding: 3px 6px;
+        font-size: 0.65em;
+        padding: 4px 6px;
     }
 }
 
