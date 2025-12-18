@@ -1,0 +1,102 @@
+PRIVACY POLICY - HINDU PANCHANG CALENDAR
+
+Last Updated: December 18, 2024
+
+This Privacy Policy describes how SA-privateLimited.com ("we", "our", or "us") collects, uses, and protects your information when you use the Hindu Panchang Calendar mobile application ("App").
+
+By using our App, you agree to the collection and use of information in accordance with this policy. If you do not agree with our policies and practices, please do not use our App.
+
+1. INFORMATION WE COLLECT
+
+1.1 Personal Information
+Our App is designed with privacy in mind. We collect minimal personal information:
+- User Notes: Any personal notes, reminders, or calendar entries you create within the App are stored locally on your device and optionally synced to our secure Firebase database.
+- Device Information: We may collect basic device information (device type, operating system version) to improve app performance and compatibility.
+- Usage Data: We may collect anonymous usage statistics to understand how the App is used and to improve user experience.
+
+1.2 Automatically Collected Information
+- Calendar Data: The App accesses calendar data (dates, festivals, tithis, nakshatras) which is publicly available information and does not contain personal identifiers.
+- Cache Data: The App stores calendar data locally on your device for offline access and faster loading.
+
+2. HOW WE USE YOUR INFORMATION
+
+We use the collected information for the following purposes:
+- To Provide Services: To display calendar information, festivals, tithis, and nakshatras.
+- To Store Your Notes: To save and sync your personal notes and reminders across your devices using Firebase.
+- To Improve the App: To analyze usage patterns and improve app functionality and user experience.
+- To Ensure Security: To detect and prevent fraud, abuse, or security issues.
+
+3. DATA STORAGE AND SECURITY
+
+3.1 Local Storage
+Most of your data, including calendar information and cached content, is stored locally on your device using IndexedDB and browser cache. This data remains on your device and is not transmitted to our servers unless you explicitly enable sync.
+
+3.2 Cloud Storage (Firebase)
+If you choose to sync your notes across devices, your notes are stored securely on Google Firebase Realtime Database. Firebase uses industry-standard security measures including encryption in transit (HTTPS/TLS), secure authentication, and access controls.
+
+Your notes are stored with a unique identifier and are not linked to your personal identity unless you provide such information.
+
+3.3 Data Retention
+We retain your personal notes and data for as long as you use the App. If you delete the App or your account, your data will be deleted from our servers within 30 days. Locally stored data on your device will be removed when you uninstall the App.
+
+4. DATA SHARING AND DISCLOSURE
+
+We do not sell, trade, or rent your personal information to third parties. We may share information only in the following circumstances:
+- Service Providers: We use Firebase (Google) for data storage and analytics. These service providers are bound by their own privacy policies.
+- Legal Requirements: We may disclose information if required by law or in response to valid legal requests.
+- App Security: We may share information to protect the security and integrity of our App and users.
+
+5. THIRD-PARTY SERVICES
+
+5.1 Firebase (Google)
+Our App uses Google Firebase for data storage and analytics. Firebase's privacy policy can be found at: https://firebase.google.com/support/privacy
+
+5.2 Calendar Data Sources
+Calendar data (festivals, tithis, nakshatras) is sourced from publicly available Panchang references and does not contain personal information.
+
+6. YOUR RIGHTS AND CHOICES
+
+You have the following rights regarding your personal information:
+- Access: You can access your notes and data stored in the App at any time.
+- Deletion: You can delete your notes and data at any time through the App settings or by uninstalling the App.
+- Data Export: You can export your calendar data and notes using the export feature in the App.
+- Opt-Out: You can disable data sync in the App settings to prevent data from being stored on our servers.
+
+7. CHILDREN'S PRIVACY
+
+Our App is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
+
+8. INTERNATIONAL DATA TRANSFERS
+
+Your information may be transferred to and stored on servers located outside your country of residence. By using our App, you consent to the transfer of your information to these servers. We ensure that appropriate safeguards are in place to protect your information.
+
+9. CHANGES TO THIS PRIVACY POLICY
+
+We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.
+
+10. COOKIES AND TRACKING
+
+Our App does not use cookies or tracking technologies. We use local storage (IndexedDB) for caching calendar data and your notes, which improves app performance and enables offline functionality.
+
+11. DATA SECURITY
+
+We implement appropriate technical and organizational security measures to protect your information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+
+12. CONTACT US
+
+If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
+
+SA-privateLimited.com
+Email: support@SA-privateLimited.com
+Phone: +91 8539943087
+Contact Person: Prince Gupta
+
+We will respond to your inquiries within 30 days.
+
+13. CONSENT
+
+By using the Hindu Panchang Calendar App, you consent to this Privacy Policy and agree to its terms. If you do not agree to this policy, please do not use our App.
+
+© 2024 SA-privateLimited.com. All rights reserved.
+This Privacy Policy is effective as of December 18, 2024.
+

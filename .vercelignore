@@ -1,0 +1,9 @@
+node_modules
+android
+*.log
+uploads
+data/*.json
+!data/calendar-*.json
+PRIVACY_POLICY.html
+PRIVACY_POLICY.txt
+

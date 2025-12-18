@@ -9,17 +9,17 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "34.0.0"
+    compileSdkVersion 35
+    buildToolsVersion "35.0.0"
 
     namespace "com.SAHinduCalendar"
     
     defaultConfig {
         applicationId "com.SAHinduCalendar"
         minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0.0"
+        targetSdkVersion 35
+        versionCode 3
+        versionName "1.0.3"
     }
     
     signingConfigs {
@@ -51,8 +51,13 @@ android {
         }
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Generate native debug symbols
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
         }
     }
     
