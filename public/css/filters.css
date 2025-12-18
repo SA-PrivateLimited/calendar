@@ -1,0 +1,228 @@
+/* Filter Panel Styles */
+.search-panel {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    animation: slideDown 0.4s ease-out;
+}
+
+.search-section {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.search-section input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 18px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transition);
+    background: white;
+}
+
+.search-section input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-section select {
+    padding: 12px 18px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+}
+
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.filter-section h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.filter-group select {
+    padding: 10px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-group select[multiple] {
+    min-height: 100px;
+    padding: 8px;
+}
+
+.filter-group select[multiple] option {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
+
+.filter-group select[multiple] option:checked {
+    background: #667eea;
+    color: white;
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.date-range input[type="date"] {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.date-range input[type="date"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.date-range span {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.filter-indicator {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .search-panel {
+        padding: 15px;
+    }
+    
+    .search-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .search-section input,
+    .search-section select {
+        width: 100%;
+    }
+    
+    .filter-section {
+        padding: 15px;
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .date-range {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .date-range span {
+        text-align: center;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+    }
+    
+    .filter-actions button {
+        width: 100%;
+    }
+    
+    .filter-indicator {
+        width: 100%;
+        margin: 10px 0 0 0;
+        text-align: center;
+    }
+}
+
+/* Filter highlight animation */
+@keyframes highlightFilter {
+    0% {
+        background-color: rgba(102, 126, 234, 0.1);
+    }
+    50% {
+        background-color: rgba(102, 126, 234, 0.3);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.day-cell.filtered-match {
+    animation: highlightFilter 1s ease-out;
+    border: 2px solid #667eea;
+}
+

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "230425846164",
+    "firebase_url": "https://hinducalendar-f8670-default-rtdb.firebaseio.com",
+    "project_id": "hinducalendar-f8670",
+    "storage_bucket": "hinducalendar-f8670.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230425846164:android:d3f8ff1a0af34323a62f81",
+        "android_client_info": {
+          "package_name": "com.SAHinduCalendar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaa1m88olIVXeDbSbmG_Uof0L6uyartPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

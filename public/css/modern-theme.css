@@ -1,0 +1,441 @@
+/* Modern Calendar Theme - Inspired by Task App Design */
+
+:root {
+    /* Soft Pastel Colors */
+    --pink-light: #FFE8F5;
+    --pink-medium: #FFB8DD;
+    --pink-dark: #FF80C0;
+
+    --green-light: #E8F8F0;
+    --green-medium: #A8E6CF;
+    --green-dark: #5FB996;
+
+    --yellow-light: #FFF9E6;
+    --yellow-medium: #FFE8A3;
+    --yellow-dark: #FFD666;
+
+    --blue-light: #E8F4FF;
+    --blue-medium: #A8D8FF;
+    --blue-dark: #6BB6FF;
+
+    --purple-light: #F3E8FF;
+    --purple-medium: #D4B5FF;
+    --purple-dark: #B085FF;
+
+    --orange-light: #FFF0E6;
+    --orange-medium: #FFD4B3;
+    --orange-dark: #FFB380;
+
+    /* Neutral Colors */
+    --bg-primary: #F8F9FB;
+    --bg-secondary: #FFFFFF;
+    --text-primary: #2D3748;
+    --text-secondary: #718096;
+    --border-color: #E2E8F0;
+
+    /* Shadows */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+    /* Border Radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+}
+
+/* Base Styles */
+body {
+    background: var(--bg-primary);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px;
+}
+
+/* Header Styling */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-medium);
+}
+
+header h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: none;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls select,
+.controls button {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.controls select:hover,
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.view-select {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: var(--text-primary) !important;
+    border: none !important;
+}
+
+/* Calendar View Container */
+#calendarView {
+    padding: 0;
+}
+
+/* Month Section */
+.month-section {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-soft);
+}
+
+.month-header {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day-header {
+    text-align: center;
+    padding: 12px 0;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Day Cells - Card Style */
+.day-cell {
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.day-cell:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--blue-medium);
+}
+
+.day-cell.other-month {
+    opacity: 0.3;
+    background: transparent;
+}
+
+/* Today Highlight */
+.day-cell.today {
+    background: var(--blue-light);
+    border-color: var(--blue-dark);
+    box-shadow: var(--shadow-soft);
+}
+
+.day-cell.today .day-number {
+    background: var(--blue-dark);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+/* National Holiday */
+.day-cell.national-holiday {
+    background: var(--pink-light);
+    border-color: var(--pink-medium);
+}
+
+/* Festival Day */
+.day-cell.festival-day {
+    background: var(--purple-light);
+    border-color: var(--purple-medium);
+}
+
+/* Day Number */
+.day-number {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+/* Day Info */
+.day-info {
+    font-size: 0.7em;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Festival List */
+.festival-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.festival-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.65em;
+    font-weight: 500;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Category Colors for Different Festivals */
+.festival-item:nth-child(1) {
+    background: var(--pink-light);
+    border-left: 3px solid var(--pink-dark);
+}
+
+.festival-item:nth-child(2) {
+    background: var(--green-light);
+    border-left: 3px solid var(--green-dark);
+}
+
+.festival-item:nth-child(3) {
+    background: var(--yellow-light);
+    border-left: 3px solid var(--yellow-dark);
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Footer */
+footer {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-top: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+footer h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+footer p {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+footer a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 12px;
+    }
+
+    header {
+        padding: 20px;
+        border-radius: var(--radius-md);
+    }
+
+    header h1 {
+        font-size: 1.4em;
+    }
+
+    .month-section {
+        padding: 16px;
+        border-radius: var(--radius-md);
+    }
+
+    .month-header {
+        font-size: 1.2em;
+    }
+
+    .calendar-grid {
+        gap: 4px;
+    }
+
+    .day-cell {
+        min-height: 100px;
+        padding: 8px;
+        border-radius: var(--radius-sm);
+    }
+
+    .day-number {
+        font-size: 1em;
+    }
+
+    .day-info {
+        font-size: 0.65em;
+    }
+
+    .festival-item {
+        font-size: 0.6em;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .day-cell {
+        min-height: 80px;
+        padding: 6px;
+    }
+
+    .day-number {
+        font-size: 0.9em;
+    }
+
+    .day-info {
+        font-size: 0.6em;
+    }
+
+    .festival-list {
+        gap: 2px;
+    }
+
+    .festival-item {
+        font-size: 0.55em;
+        padding: 2px 4px;
+    }
+}
+
+/* Smooth Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.month-section {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}

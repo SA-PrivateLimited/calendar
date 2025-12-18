@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindu Panchang Calendar 2026 | SA-privateLimited.com</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+    <link rel="stylesheet" href="css/views.css">
+    <link rel="stylesheet" href="css/filters.css">
+    <link rel="stylesheet" href="css/calendar-fix.css">
+    <link rel="stylesheet" href="css/modern-theme.css?v=2">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <script>
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.warn('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+    <div class="container">
+        <header>
+            <h1>हिन्दू पंचांग कैलेंडर | Hindu Panchang Calendar</h1>
+            <div class="controls">
+                <select id="yearSelect">
+                    <option value="2026" selected>2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2027">2027</option>
+                </select>
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="sa">संस्कृत</option>
+                </select>
+                <select id="monthSelect" class="month-select">
+                    <option value="">Select Month...</option>
+                    <option value="2026-01">January 2026</option>
+                    <option value="2026-02">February 2026</option>
+                    <option value="2026-03">March 2026</option>
+                    <option value="2026-04">April 2026</option>
+                    <option value="2026-05">May 2026</option>
+                    <option value="2026-06">June 2026</option>
+                    <option value="2026-07">July 2026</option>
+                    <option value="2026-08">August 2026</option>
+                    <option value="2026-09">September 2026</option>
+                    <option value="2026-10">October 2026</option>
+                    <option value="2026-11">November 2026</option>
+                    <option value="2026-12">December 2026</option>
+                </select>
+                <div class="filter-wrapper">
+                    <select id="filterTithi" class="filter-dropdown">
+                        <option value="all">All Tithis</option>
+                        <option value="ekadashi">Ekadashi</option>
+                        <option value="purnima">Purnima</option>
+                        <option value="amavasya">Amavasya</option>
+                    </select>
+                    <button class="filter-clear-btn" id="clearTithi" title="Clear Tithi filter" style="display: none;">✕</button>
+                </div>
+                <div class="filter-wrapper">
+                    <select id="filterFestival" class="filter-dropdown">
+                        <option value="all">All Festivals</option>
+                        <option value="major">Major Festivals</option>
+                    </select>
+                    <button class="filter-clear-btn" id="clearFestival" title="Clear Festival filter" style="display: none;">✕</button>
+                </div>
+                <div class="filter-wrapper">
+                    <select id="filterNakshatra" class="filter-dropdown">
+                        <option value="all">All Nakshatras</option>
+                        <option value="rohini">Rohini</option>
+                        <option value="mrigashira">Mrigashira</option>
+                        <option value="ardra">Ardra</option>
+                        <option value="punarvasu">Punarvasu</option>
+                        <option value="pushya">Pushya</option>
+                        <option value="ashlesha">Ashlesha</option>
+                        <option value="magha">Magha</option>
+                        <option value="purva phalguni">Purva Phalguni</option>
+                        <option value="uttara phalguni">Uttara Phalguni</option>
+                        <option value="hasta">Hasta</option>
+                        <option value="chitra">Chitra</option>
+                        <option value="swati">Swati</option>
+                        <option value="vishakha">Vishakha</option>
+                        <option value="anuradha">Anuradha</option>
+                        <option value="jyeshtha">Jyeshtha</option>
+                        <option value="mula">Mula</option>
+                        <option value="purva ashadha">Purva Ashadha</option>
+                        <option value="uttara ashadha">Uttara Ashadha</option>
+                        <option value="shravana">Shravana</option>
+                        <option value="dhanishta">Dhanishta</option>
+                        <option value="shatabhisha">Shatabhisha</option>
+                        <option value="purva bhadrapada">Purva Bhadrapada</option>
+                        <option value="uttara bhadrapada">Uttara Bhadrapada</option>
+                        <option value="revati">Revati</option>
+                        <option value="ashwini">Ashwini</option>
+                        <option value="bharani">Bharani</option>
+                        <option value="krittika">Krittika</option>
+                    </select>
+                    <button class="filter-clear-btn" id="clearNakshatra" title="Clear Nakshatra filter" style="display: none;">✕</button>
+                </div>
+                <div class="action-buttons">
+                    <select id="themeSelect" class="theme-select" title="Select Theme">
+                        <option value="grey">Grey Theme</option>
+                        <option value="blue">Blue Theme</option>
+                        <option value="green">Green Theme</option>
+                        <option value="purple">Purple Theme</option>
+                        <option value="orange">Orange Theme</option>
+                        <option value="teal">Teal Theme</option>
+                    </select>
+                    <button id="exportBtn" class="btn">📥 Export</button>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="calendar-container">
+            <div id="calendarView" class="calendar-view">
+                <div class="loading">Loading calendar</div>
+            </div>
+        </div>
+
+        <!-- Filter Results Modal -->
+        <div id="filterResultsModal" class="modal">
+            <div class="modal-content" style="max-width: 600px;">
+                <span class="close">&times;</span>
+                <h2 id="filterResultsTitle">Filter Results</h2>
+                <div id="filterResultsContent" style="max-height: 500px; overflow-y: auto; margin-top: 20px;">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Note Modal -->
+        <div id="noteModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">📝 Add Note</h2>
+                <form id="noteForm">
+                    <div id="existingNotesContainer"></div>
+                    <input type="hidden" id="noteId">
+                    <input type="hidden" id="noteDate">
+                    
+                    <label for="noteTitle">Title:</label>
+                    <input type="text" id="noteTitle" required>
+                    
+                    <label for="noteDescription">Description:</label>
+                    <textarea id="noteDescription" rows="4"></textarea>
+                    
+                    <label for="noteCategory">Category:</label>
+                    <select id="noteCategory">
+                        <option value="personal">Personal</option>
+                        <option value="festival">Festival</option>
+                        <option value="task">Task</option>
+                        <option value="reminder">Reminder</option>
+                    </select>
+                    
+                    <label for="noteTime">Time (optional):</label>
+                    <input type="time" id="noteTime">
+                    
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" id="cancelNoteBtn">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="deleteNoteBtn" style="display: none;">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Export Modal -->
+        <div id="exportModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>📥 Export Calendar</h2>
+                <div class="export-options">
+                    <button class="btn btn-primary" onclick="exportCalendar('json')">📄 Export as JSON</button>
+                    <button class="btn btn-primary" onclick="exportCalendar('csv')">📊 Export as CSV</button>
+                    <button class="btn btn-primary" onclick="exportCalendar('pdf')">📑 Export as PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Powered by <a href="https://SA-privateLimited.com" target="_blank">SA-privateLimited.com</a></p>
+                <p class="contact-info">
+                    <a href="tel:+918210900726">+91 8210900726</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/cache-manager.js"></script>
+    <script src="js/firebase-client.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>
+

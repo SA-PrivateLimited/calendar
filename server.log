@@ -1,0 +1,14 @@
+
+🚀 Calendar Server is running!
+📍 Local:   http://localhost:3000
+🌐 Network: http://192.168.1.10:3000
+
+💡 To access from emulator, use: http://10.0.2.2:3000
+💡 To access from device on same network, use: http://192.168.1.10:3000
+
+✅ Loaded calendar 2026 from local file (365 days)
+✅ Loaded calendar 2026 from local file (365 days)
+✅ Loaded calendar 2026 from local file (365 days)
+✅ Loaded calendar 2025 from local file (365 days)
+✅ Loaded calendar 2026 from local file (365 days)
+✅ Loaded calendar 2025 from local file (365 days)

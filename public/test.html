@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Calendar API Test</h1>
+    <button onclick="testAPI()">Test API</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testAPI() {
+            const result = document.getElementById('result');
+            result.textContent = 'Loading...';
+
+            try {
+                const response = await fetch('/api/calendar/2026');
+                const data = await response.json();
+                result.textContent = `Success! Loaded ${data.length} days\n\nFirst day: ${JSON.stringify(data[0], null, 2)}`;
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Auto-test on load
+        testAPI();
+    </script>
+</body>
+</html>

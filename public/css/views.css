@@ -1,0 +1,367 @@
+/* View Toggle Styles */
+.view-toggle {
+    display: flex;
+    gap: 5px;
+    background: rgba(255,255,255,0.2);
+    padding: 4px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.view-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: white;
+    transition: var(--transition);
+}
+
+.view-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.view-btn.active {
+    background: white;
+    color: #667eea;
+    border-color: white;
+    font-weight: 600;
+}
+
+/* Day View Styles */
+.day-view-container {
+    padding: 20px;
+}
+
+.day-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.day-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #667eea;
+    flex: 1;
+    text-align: center;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.day-card.detailed {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.day-card-header-detailed {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.day-card-date {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.day-card-day-name {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.day-card-body {
+    padding: 30px;
+}
+
+.day-card-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.day-card-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.day-card-section h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.info-value {
+    color: #1f2937;
+    text-align: right;
+}
+
+.festivals-list,
+.notes-list-detailed {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.festival-item-detailed {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.note-item-detailed {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
+}
+
+.note-item-detailed strong {
+    color: #1f2937;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.note-item-detailed p {
+    color: #6b7280;
+    margin: 8px 0;
+}
+
+.note-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #9ca3af;
+    margin-top: 10px;
+}
+
+.day-card-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Week View Styles */
+.week-view-container {
+    padding: 20px;
+}
+
+.week-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.week-range {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #667eea;
+    flex: 1;
+    text-align: center;
+}
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+}
+
+.day-card.compact {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    min-height: 200px;
+}
+
+.day-card.compact:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.day-card-header {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.day-card-number {
+    font-size: 2em;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.day-card-day {
+    font-size: 0.9em;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.day-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.day-card-info {
+    font-size: 0.85em;
+    color: #6b7280;
+    padding: 5px 0;
+}
+
+.day-card-festivals,
+.day-card-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.festival-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.note-badge {
+    background: #10b981;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .view-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .view-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .day-nav,
+    .week-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .day-title,
+    .week-range {
+        order: -1;
+        width: 100%;
+    }
+    
+    .nav-btn {
+        flex: 1;
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+    
+    .week-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .day-card.compact {
+        min-height: auto;
+    }
+    
+    .day-card-body {
+        padding: 20px;
+    }
+    
+    .day-card-header-detailed {
+        padding: 20px;
+    }
+    
+    .day-card-date {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-toggle {
+        flex-direction: column;
+    }
+    
+    .view-btn {
+        width: 100%;
+    }
+    
+    .day-card-body {
+        padding: 15px;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .info-value {
+        text-align: left;
+    }
+}
+
