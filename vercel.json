@@ -1,38 +1,32 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/privacy-policy",
-      "dest": "/public/privacy-policy.html"
-    },
-    {
-      "src": "/privacy-policy.html",
-      "dest": "/public/privacy-policy.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/public/index.html"
-    }
-  ]
-}
-
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/index.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "public/**/*",
+        "use": "@vercel/static"
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "/api/index.js"
+      },
+      {
+        "source": "/privacy-policy",
+        "destination": "/public/privacy-policy.html"
+      },
+      {
+        "source": "/privacy-policy.html",
+        "destination": "/public/privacy-policy.html"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/public/$1"
+      }
+    ]
+  }
+  
